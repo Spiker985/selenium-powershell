@@ -86,8 +86,8 @@ function Start-SeNewEdge {
         $WebDriverDirectory = $binaryDir
     }
     # No linux or mac driver to test for yet
-    if (-not $WebDriverDirectory -and (Test-Path (Join-Path -Path "$PSScriptRoot\Assemblies\" -ChildPath 'msedgedriver.exe'))) {
-        $WebDriverDirectory = "$PSScriptRoot\Assemblies\"
+    if (-not $WebDriverDirectory -and (Test-Path (Join-Path -Path "$PSScriptRoot\Assemblies\windows\" -ChildPath 'msedgedriver.exe'))) {
+        $WebDriverDirectory = "$PSScriptRoot\Assemblies\windows\"
         Write-Verbose -Message "Using Web driver from the default location"
     }
     if (-not $WebDriverDirectory) { throw "Could not find msedgedriver.exe"; return }
@@ -228,7 +228,7 @@ function Start-SeChrome {
         if ($Fullscreen) {
             $Chrome_Options.AddArguments('start-fullscreen')
         }
-		
+
         if ($DisableAutomationExtension) {
             $Chrome_Options.AddAdditionalCapability('useAutomationExtension', $false)
             $Chrome_Options.AddExcludedArgument('enable-automation')
@@ -375,9 +375,9 @@ function Start-SeEdge {
         $Driver = [OpenQA.Selenium.Edge.EdgeDriver]::new($service , $options)
     }
     catch {
-        $driverversion = (Get-Item .\assemblies\MicrosoftWebDriver.exe).VersionInfo.ProductVersion
+        $driverversion = (Get-Item .\assemblies\windows\MicrosoftWebDriver.exe).VersionInfo.ProductVersion
         $WindowsVersion = [System.Environment]::OSVersion.Version.ToString()
-        Write-Warning -Message "Edge driver is $driverversion. Windows is $WindowsVersion. If the driver is out-of-date, update it as a Windows feature,`r`nand then delete $PSScriptRoot\assemblies\MicrosoftWebDriver.exe"
+        Write-Warning -Message "Edge driver is $driverversion. Windows is $WindowsVersion. If the driver is out-of-date, update it as a Windows feature,`r`nand then delete $PSScriptRoot\assemblies\windows\MicrosoftWebDriver.exe"
         throw $_ ; return
     }
     if (-not $Driver) { Write-Warning "Web driver was not created"; return }
@@ -546,7 +546,7 @@ function Stop-SeDriver {
 }
 #>
 
-function Stop-SeDriver { 
+function Stop-SeDriver {
     [alias('SeClose')]
     param(
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
@@ -848,12 +848,12 @@ function Remove-SeCookie {
         [Alias('Driver')]
         [OpenQA.Selenium.IWebDriver]
         $Target = $Global:SeDriver,
- 
+
         [Parameter(Mandatory = $true, ParameterSetName = 'DeleteAllCookies')]
         [Alias('Purge')]
         [switch]$DeleteAllCookies,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'NamedCookie')] 
+        [Parameter(Mandatory = $true, ParameterSetName = 'NamedCookie')]
         [string]$Name
     )
 
@@ -890,7 +890,7 @@ function Set-SeCookie {
     Cookie(String, String, String, String, Nullable<DateTime>)
     Initializes a new instance of the Cookie class with a specific name, value, domain, path and expiration date.
     #>
-    
+
     begin {
         if ($null -ne $ExpiryDate -and $ExpiryDate.GetType().Name -ne 'DateTime') {
             throw '$ExpiryDate can only be $null or TypeName: System.DateTime'
@@ -1018,7 +1018,7 @@ function New-SeScreenshot {
     if ($AsBase64EncodedString) { $Screenshot.AsBase64EncodedString }
     elseif ($Path) {
         $Path = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Path)
-        $Screenshot.SaveAsFile($Path, $ImageFormat) 
+        $Screenshot.SaveAsFile($Path, $ImageFormat)
     }
     if ($Passthru) { $Screenshot }
 }
@@ -1069,7 +1069,7 @@ function Switch-SeFrame {
         [ValidateIsWebDriverAttribute()]
         $Target = $Global:SeDriver
     )
- 
+
     if ($frame) { [void]$Target.SwitchTo().Frame($Frame) }
     elseif ($Parent) { [void]$Target.SwitchTo().ParentFrame() }
     elseif ($Root) { [void]$Target.SwitchTo().defaultContent() }

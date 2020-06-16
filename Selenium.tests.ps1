@@ -3,20 +3,20 @@ Import-Module (Join-Path $PSScriptRoot "Selenium.psd1") -Force
 Describe "Verify the Binaries SHA256 Hash" {
     It "Check WebDriver.dll Hash"{
         # VirusTotal Scan URL = https://www.virustotal.com/gui/file/0ee619b1786cf5971c0f9c6ee1859497aecba93a4953cf92fea998e8eefadf3c/detection
-        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\WebDriver.dll).Hash
-        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\WebDriver.dll.sha256)
+        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\windows\WebDriver.dll).Hash
+        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\windows\WebDriver.dll.sha256)
     }
 
     It "Check WebDriver.Support.dll Hash" {
         # VirusTotal Scan URL = https://www.virustotal.com/gui/file/b59ba7d0cffe43e722b13ad737cf596f030788b86b5b557cb479f0b6957cce8a/detection
-        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\WebDriver.Support.dll).Hash
-        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\WebDriver.Support.dll.sha256)
+        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\windows\WebDriver.Support.dll).Hash
+        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\windows\WebDriver.Support.dll.sha256)
     }
 
     It "Check ChromeDriver.exe Hash" {
         # VirusTotal Scan URL = https://www.virustotal.com/gui/file/c5c852d8f0890eb8c0b77fed623a3c36f50434552e9623e47fadf1e445f2f772/detection
-        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\chromedriver.exe).Hash
-        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\chromedriver.exe.sha256)
+        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\windows\chromedriver.exe).Hash
+        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\windows\chromedriver.exe.sha256)
     }
 
     It "Check ChromeDriver Linux Hash" {
@@ -33,8 +33,8 @@ Describe "Verify the Binaries SHA256 Hash" {
 
     It "Check GeckoDriver.exe Hash" {
         # VirusTotal Scan URL = https://www.virustotal.com/gui/file/255c9d3571c86841213f49b26d176a6ad440be8c720e3c2d9226076adf4f603d/detection
-        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\geckodriver.exe).Hash
-        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\geckodriver.exe.sha256)
+        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\windows\geckodriver.exe).Hash
+        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\windows\geckodriver.exe.sha256)
     }
 
     It "Check GeckoDriver Linux Hash" {
@@ -51,14 +51,14 @@ Describe "Verify the Binaries SHA256 Hash" {
 
     It "Check IEDriverServer.exe Hash" {
         # VirusTotal Scan URL = https://www.virustotal.com/gui/file/a1e26b0e8cb5f8db1cd784bac71bbf540485d81e697293b0b4586e25a31a8187/detection - this driver seems to have 2 false positives and is marked as clean in the comments
-        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\IEDriverServer.exe).Hash
-        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\IEDriverServer.exe.sha256)
+        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\windows\IEDriverServer.exe).Hash
+        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\windows\IEDriverServer.exe.sha256)
     }
 
     It "Check MicrosoftWebDriver.exe Hash" {
         # VirusTotal Scan URL = https://www.virustotal.com/gui/file/6e8182697ea5189491b5519d8496a3392e43741b7c0515130f2f8205881d208e/detection
-        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\MicrosoftWebDriver.exe).Hash
-        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\MicrosoftWebDriver.exe.sha256)
+        $Hash = (Get-FileHash -Algorithm SHA256 -Path $PSScriptRoot\assemblies\windows\MicrosoftWebDriver.exe).Hash
+        $Hash | Should -Be (Get-Content -Path $PSScriptRoot\assemblies\windows\MicrosoftWebDriver.exe.sha256)
     }
 }
 
@@ -221,4 +221,3 @@ Describe "Find-SeElement Firefox" {
 
     Stop-SeDriver $Driver
 }
-
